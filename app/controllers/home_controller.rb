@@ -22,10 +22,13 @@ class HomeController < ApplicationController
 
       @users = Post.select(:email).distinct.pluck(:email)
 
-      # Paginate the posts for admins
-      @pagy, @posts = pagy(@posts)
     else
-      @pagy, @posts = pagy(Post.all.order(created_at: :desc))  # Add pagination for non-admins
+      @posts = Post.where(visibility: true).order(created_at: :desc)  # Add pagination for non-admins
     end
+
+    puts "Post Count: #{@posts.count}"
+    @pagy, @posts = pagy(@posts, items: 6, limit: 6)
+
+    puts "Pagy: #{@pagy.inspect}"
   end
 end

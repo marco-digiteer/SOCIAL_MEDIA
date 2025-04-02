@@ -215,3 +215,47 @@
   .btn-unfeature:active {
     background-color: #333;
   }
+
+  .pagination-wrapper {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .pagination-wrapper .pagy-nav {
+    display: inline-block;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .pagination-wrapper .pagy-nav li {
+    display: inline;
+    margin: 0 5px;
+  }
+  
+  .pagy.nav {
+    display: inline-block;
+  }
+  
+  .pagy.nav a,
+  .pagy.nav span {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .pagy.nav a:hover {
+    background-color: #a1a1a1;
+    color: #ffffff;
+  }
+  
+  .pagy.nav .current {
+    background-color: #606060;
+    color: #fff;
+    border-color: #606060;
+    cursor: default;
+    font-weight: bold;
+  }
+  
