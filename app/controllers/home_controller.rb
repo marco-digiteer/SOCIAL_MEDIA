@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+  include Pagy::Backend
+
   def index
     if admin_signed_in?
       sort_param = params[:sort] || "newest"
@@ -17,14 +19,13 @@ class HomeController < ApplicationController
                else
                  @posts.order(created_at: :desc)
                end
-  
+
       @users = Post.select(:email).distinct.pluck(:email)
-  
-      respond_to do |format|
-        format.html
-      end
+
+      # Paginate the posts for admins
+      @pagy, @posts = pagy(@posts)
     else
-      @posts = Post.all.order(created_at: :desc)
+      @pagy, @posts = pagy(Post.all.order(created_at: :desc))  # Add pagination for non-admins
     end
   end
 end

@@ -1,22 +1,24 @@
 class PostsController < ApplicationController
+  include Pagy::Backend
+  
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :my_posts]
   before_action :set_post, only: [:edit, :update, :destroy]
   before_action :authorize_user!, only: [:edit, :update, :destroy]
 
   def index
     if admin_signed_in?
-      @posts = Post.all
+      @pagy, @posts = pagy(Post.all)
     else
-      @posts = Post.where(visibility: true).order(created_at: :desc)
+      @pagy, @posts = pagy(Post.where(visibility: true).order(created_at: :desc))
     end
   end
-  
+
   def featured
-    @posts = Post.where(featured: true, visibility: true).order(created_at: :desc)
+    @pagy, @posts = pagy(Post.where(featured: true, visibility: true).order(created_at: :desc))
   end
 
   def my_posts
-    @posts = Post.where(email: current_user.email).order(created_at: :desc)
+    @pagy, @posts = pagy(Post.where(email: current_user.email).order(created_at: :desc))
   end
 
   def new

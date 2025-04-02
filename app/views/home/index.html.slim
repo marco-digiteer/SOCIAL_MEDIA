@@ -21,3 +21,6 @@
     - @posts.each do |post|
       = render "posts/post", post: post
   </turbo-frame>
+
+  .pagination-wrapper
+    == pagy_nav(@pagy, link_extra: 'data-turbo="false"')
